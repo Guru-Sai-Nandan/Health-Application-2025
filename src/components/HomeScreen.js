@@ -3,8 +3,6 @@ import { Progress } from "@material-tailwind/react";
 import { v4 as uuid } from "uuid";
 import { Button, Input, InputGroup, InputLeftAddon, } from '@chakra-ui/react';
 import { Link } from 'react-router-dom'
-import { Select } from '@chakra-ui/react'
-import axios from 'axios'
 
 const HomeScreen = () => {
     const [showModal, setShowModal] = useState(false)
@@ -13,8 +11,8 @@ const HomeScreen = () => {
 
     const [mealCard, setMealCard] = useState(false)
     const [workoutCard, setWorkoutCard] = useState(false)
-    const [tempDailyCaloriesLimit, setTempDailyCaloriesLimit] = useState(2000)
-    const [dailyCaloriesLimit, setDailyCaloriesLimit] = useState(2000)
+    const [tempDailyCaloriesLimit, setTempDailyCaloriesLimit] = useState(2200)
+    const [dailyCaloriesLimit, setDailyCaloriesLimit] = useState(2200)
     const [caloriesConsumed, setCaloriesConsumed] = useState(0)
     const [caloriesBurned, setCaloriesBurned] = useState(0)
 
@@ -224,7 +222,7 @@ const HomeScreen = () => {
             </div>
 
             <div className="flex w-full flex-col px-10 my-3 mt-8">
-                <Progress value={((Number(caloriesConsumed) - Number(caloriesBurned)) / dailyCaloriesLimit) * 100} variant="filled" size="lg" color='green' />
+                <Progress value={(Number(caloriesConsumed) / dailyCaloriesLimit) * 100} variant="filled" size="lg" color='green' />
             </div>
 
             <div className='flex mt-4 ml-4'>
@@ -498,7 +496,7 @@ const HomeScreen = () => {
                                                 type="text"
                                                 className="form-control w-full px-4 p-2 rounded-md text-base border border-gray"
                                                 id="calorie-limit"
-                                                placeholder="2000"
+                                                placeholder="2200"
                                                 value={tempDailyCaloriesLimit}
                                                 onChange={(e) => setTempDailyCaloriesLimit(e.target.value)}
                                             />
