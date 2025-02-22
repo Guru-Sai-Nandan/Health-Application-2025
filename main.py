@@ -13,8 +13,8 @@ from sklearn.pipeline import make_pipeline
 app = Flask(__name__)
 CORS(app)
 
-cal = pd.read_csv(r'C:\Users\agsna\Desktop\CalorieTracker\calorie-tracker\calories.csv')
-exc = pd.read_csv(r'C:\Users\agsna\Desktop\CalorieTracker\calorie-tracker\exercise.csv')
+cal = pd.read_csv(r'D:\acadamics\codes1010\zzztemp\nandan-tmp-app\Health-Application-2025\calories.csv')
+exc = pd.read_csv(r'D:\acadamics\codes1010\zzztemp\nandan-tmp-app\Health-Application-2025\exercise.csv')
 cal_data = pd.concat([exc, cal['Calories']], axis=1)
 
 cal_data.replace({"Gender": {'male': 0, 'female': 1}}, inplace=True)
@@ -47,7 +47,7 @@ def predict_calories():
         dur = content['Duration']
         hr = content['Heart_Rate']
         bt = content['Body_Temp']
-
+        print(content)
         result = xgb_predict(gen, age, hei, wei, dur, hr, bt)
         print(result)
         return jsonify({"calories": round(result)})

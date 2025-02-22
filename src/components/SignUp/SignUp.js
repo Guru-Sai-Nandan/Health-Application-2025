@@ -27,15 +27,22 @@ const SignUp = () => {
       userId: userId, // Append the user ID here
     };
     console.log(modifiedUser, 'modified user...');
+
     const response = await axios.post(
-      "http://localhost:4000/user-api/register",
+      "http://localhost:4000/api/v1/user/register",
       modifiedUser,
       {
         headers: {
           "Content-Type": "application/json", // Set the content type to JSON
         },
+        withCredentials: true,
       }
     );
+
+    // Store response.data in localStorage with "user" as the key
+    localStorage.setItem("user", JSON.stringify(response.data));
+
+    console.log(response.data)
     navigate('/login')
   };
   let navigate = useNavigate()

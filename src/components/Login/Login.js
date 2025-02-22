@@ -13,7 +13,7 @@ function Login() {
   const [click, setClick] = useState(false)
   let navigate = useNavigate();
   useEffect(() => {
-    if (localStorage.getItem('userId') && localStorage.getItem('userId') !== 'undefined')
+    if (localStorage.getItem('user') && localStorage.getItem('user') !== 'undefined')
       navigate('/')
   }, [])
   const handleInputChange = (event) => {
@@ -27,15 +27,16 @@ function Login() {
   const handleLogin = async (event) => {
     event.preventDefault();
     console.log(credentials)
-    const response = await axios.post('http://localhost:4000/user-api/login', credentials);
-    const userId = response.data.userId;
-    console.log(response.data.userId, 'uuuuuuuuuuuu')
-    console.log(userId)
-    if (userId) {
-      navigate('/')
-    }
-    localStorage.setItem("token", response.data.token)
-    localStorage.setItem("userId", response.data.userId)
+    const response = await axios.post('http://localhost:4000/api/v1/user/login', credentials, {
+      withCredentials: true,
+    });
+    console.log(response.data)
+    
+    // Store response.data in localStorage with "user" as the key
+    localStorage.setItem("user", JSON.stringify(response.data));
+
+    console.log(response.data)
+    navigate('/')
   };
 
   return (

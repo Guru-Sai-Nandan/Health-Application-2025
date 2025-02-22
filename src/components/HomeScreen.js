@@ -4,10 +4,11 @@ import { v4 as uuid } from "uuid";
 import { Button, Input, InputGroup, InputLeftAddon, } from '@chakra-ui/react';
 import { Link } from 'react-router-dom'
 import { Select } from '@chakra-ui/react'
+import axios from 'axios'
 
 const HomeScreen = () => {
     const [showModal, setShowModal] = useState(false)
-    const [allMeals, setAllMeals] = useState([{ mealId: uuid(), mealName: 'dosa', mealCalories: '500' }])
+    const [allMeals, setAllMeals] = useState([{ mealId: uuid(), meal_name: 'dosa', calories_intake: '500' }])
     const [allWorkouts, setAllWorkouts] = useState([{ workoutId: uuid(), workoutName: 'Gym', workoutCalories: '300' }])
 
     const [mealCard, setMealCard] = useState(false)
@@ -17,8 +18,8 @@ const HomeScreen = () => {
     const [caloriesConsumed, setCaloriesConsumed] = useState(0)
     const [caloriesBurned, setCaloriesBurned] = useState(0)
 
-    const [mealName, setMealName] = useState('');
-    const [mealCalories, setMealCalories] = useState('');
+    const [meal_name, setmeal_name] = useState('');
+    const [calories_intake, setcalories_intake] = useState('');
 
     const [workoutName, setWorkoutName] = useState('');
     const [workoutDuration, setWorkoutDuration] = useState();
@@ -27,16 +28,31 @@ const HomeScreen = () => {
 
     const [workoutCalories, setWorkoutCalories] = useState('');
 
-    const handleFormSubmit1 = (e) => {
+    const handleFormSubmit1 = async(e) => {
         e.preventDefault();
 
-        console.log('Meal Name:', mealName);
-        console.log('Meal Calories:', mealCalories);
+        console.log('Meal Name:', meal_name);
+        console.log('Meal Calories:', calories_intake);
 
-        setAllMeals([...allMeals, { mealId: uuid(), mealName: mealName, mealCalories: mealCalories }])
+        
+        const response = await axios.post(
+            "http://localhost:4000/api/v1/create-food",
+            {
+                "meal_name": meal_name,
+                "calories_intake": calories_intake
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json", // Set the content type to JSON
+                },
+                withCredentials: true,
+            }
+        );
 
-        setMealName('');
-        setMealCalories('');
+        setAllMeals([...allMeals, { mealId: uuid(), meal_name: meal_name, calories_intake: calories_intake }])
+
+        setmeal_name('');
+        setcalories_intake('');
     };
 
     const handleFormSubmit2 = (e) => {
@@ -45,6 +61,8 @@ const HomeScreen = () => {
         console.log('Workout Name:', workoutName);
         console.log('Workout Calories:', workoutCalories);
 
+
+        
         setAllWorkouts([...allWorkouts, {
             workoutId: uuid(),
             workoutName: workoutName,
@@ -63,7 +81,7 @@ const HomeScreen = () => {
     useEffect(() => {
         let c = 0;
         allMeals?.map(item => {
-            c += Number(item.mealCalories)
+            c += Number(item.calories_intake)
         })
         setCaloriesConsumed(c)
     }, [allMeals])
@@ -112,6 +130,22 @@ const HomeScreen = () => {
             predictCaloriesBurned()
     }, [workoutBodyTemp, workoutDuration, workoutHeartRate])
 
+
+    useEffect(()=>{
+        let func = async()=>{
+            const response = await axios.get(
+                "http://localhost:4000/api/v1/foodsToday",
+                {
+                    withCredentials: true,
+                }
+            );
+            console.log(response.data)
+            if(response.data.foods){
+                setAllMeals(response.data.foods)
+            }
+        }
+        func()
+    },[])
     return (
         <div>
             <div className=''>
@@ -239,8 +273,8 @@ const HomeScreen = () => {
                                         className="form-control w-[95%] px-4 p-2 rounded-md text-base border border-gray"
                                         id="meal-name"
                                         placeholder="Enter Meal or Item"
-                                        value={mealName}
-                                        onChange={(e) => setMealName(e.target.value)}
+                                        value={meal_name}
+                                        onChange={(e) => setmeal_name(e.target.value)}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -249,8 +283,8 @@ const HomeScreen = () => {
                                         className="form-control w-[95%] px-4 p-2 rounded-md text-base border border-gray"
                                         id="meal-calories"
                                         placeholder="Enter Calories"
-                                        value={mealCalories}
-                                        onChange={(e) => setMealCalories(e.target.value)}
+                                        value={calories_intake}
+                                        onChange={(e) => setcalories_intake(e.target.value)}
                                     />
                                 </div>
                                 <button type='submit'
@@ -269,9 +303,9 @@ const HomeScreen = () => {
                                 <div className="card my-2 border border-gray rounded-md my-2.5" data-id={index} key={item.mealId}>
                                     <div className="flex items-center px-5 p-4 w-full">
                                         <div className="flex items-center w-full">
-                                            <h3 className="mx-1 text-2xl tracking-wider w-[48%]">{item?.mealName}</h3>
+                                            <h3 className="mx-1 text-2xl tracking-wider w-[48%]">{item?.meal_name}</h3>
                                             <div className="text-2xl bg-[#599f3d] text-white text-center rounded-md items-center p-2 px-4">
-                                                {item?.mealCalories}
+                                                {item?.calories_intake}
                                             </div>
                                             <div className='flex-1'>
                                             </div>
