@@ -4,7 +4,7 @@ const app = express();
 // cors is used for intercommunication between urls
 const cors = require('cors');
 app.use(cors({
-   origin: ["http://localhost:3000", "*", process.env.FRONTEND], 
+   origin: ["http://localhost:3000", "http://localhost:3004", "*", process.env.FRONTEND], 
    credentials: true
 }));
 

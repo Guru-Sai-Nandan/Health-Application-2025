@@ -22,11 +22,22 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 export default function Header() {
   const { isOpen, onToggle } = useDisclosure()
   const navigate = useNavigate()
-  console.log(localStorage.getItem('userId', 'ueeeee'))
+
+  const handleLogout = async () => {
+    const response = await axios.get('http://localhost:4000/api/v1/user/logout', {
+      withCredentials: true,
+    });
+    console.log(response.data)
+
+    navigate('/login')
+  };
+
+
   return (
     <Box className='bg=[#589F3C]'>
       <Flex className='py-0.5'
@@ -102,7 +113,7 @@ export default function Header() {
           </Flex>
         </Flex>
 
-        {!localStorage.getItem('userId') || localStorage.getItem('userId') === 'undefined' &&
+        {!localStorage.getItem('user') || localStorage.getItem('user') === 'undefined' &&
           <Stack
             flex={{ base: 1, md: 0 }}
             justify={'flex-end'}
@@ -116,7 +127,7 @@ export default function Header() {
             </Button>
           </Stack>
         }
-        {localStorage.getItem('userId') && localStorage.getItem('userId') !== 'undefined' &&
+        {localStorage.getItem('user') && localStorage.getItem('user') !== 'undefined' &&
           <Stack
             flex={{ base: 1, md: 0 }}
             justify={'flex-end'}
@@ -126,7 +137,7 @@ export default function Header() {
             <Button color={'white'} as={'a'} fontSize={'xl'} fontWeight={500} variant={'link'} onClick={() => {
               localStorage.setItem('userId', 'undefined');
               localStorage.clear();
-              navigate('/login')
+              handleLogout();
             }}>
               Log Out
             </Button>

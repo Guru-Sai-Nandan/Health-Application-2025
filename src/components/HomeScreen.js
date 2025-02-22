@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Progress } from "@material-tailwind/react";
 import { v4 as uuid } from "uuid";
 import { Button, Input, InputGroup, InputLeftAddon, } from '@chakra-ui/react';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios';
+
 
 const HomeScreen = () => {
     const [showModal, setShowModal] = useState(false)
@@ -25,7 +27,8 @@ const HomeScreen = () => {
     const [workoutBodyTemp, setWorkoutBodyTemp] = useState();
 
     const [workoutCalories, setWorkoutCalories] = useState('');
-
+    const navigate = useNavigate();
+       
     const handleFormSubmit1 = async(e) => {
         e.preventDefault();
 

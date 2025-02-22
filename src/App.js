@@ -41,6 +41,7 @@ function App() {
                 <Route path='/nutrition' element={<NutritionTable />} />  
                 <Route path='/features' element={<Features />} />
                 <Route path='/recommendations' element={<Recommendations />} />
+                <Route path='/disease' element={<DiseaseFoodRestrictions />} />
                 <Route path='/test' element={<Test />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
