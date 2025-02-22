@@ -13,6 +13,9 @@ import NutritionTable from "./components/Nutrition/Nutrition";
 import Media from "./components/Media/Media";
 import Test from "./components/Test";
 import Header from "./components/Header";
+import Recommendations from './components/Recommendations/Recommendations'
+import Features from "./components/Features";
+import NotFound from "./components/NotFound"
 
 function App() {
 
@@ -35,9 +38,11 @@ function App() {
                 <Route path='/login' element={<Login />} />
                 <Route path='/signup' element={<SignUp />} />
                 <Route path='/media' element={<Media />} />
-                <Route path='/nutrition' element={<NutritionTable />} />
+                <Route path='/nutrition' element={<NutritionTable />} />  
+                <Route path='/features' element={<Features />} />
+                <Route path='/recommendations' element={<Recommendations />} />
                 <Route path='/test' element={<Test />} />
-
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>
           </ThemeProvider>

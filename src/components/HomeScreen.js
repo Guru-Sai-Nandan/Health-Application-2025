@@ -190,7 +190,7 @@ const HomeScreen = () => {
             </div>
 
             <div className="flex w-full flex-col px-10 my-3 mt-8">
-                <Progress value={((Number(caloriesConsumed) - Number(caloriesBurned)) / dailyCaloriesLimit) * 100} variant="filled" size="lg" color='green' />
+                <Progress value={(Number(caloriesConsumed) / dailyCaloriesLimit) * 100} variant="filled" size="lg" color='green' />
             </div>
 
             <div className='flex mt-4 ml-4'>

@@ -33,7 +33,7 @@ def xgb_predict(gen, ag, hei, wei, dur, hr, bt):
     data = {'Gender': [gen], 'Age': [ag], 'Height': [hei], 'Weight': [wei],
             'Duration': [dur], 'Heart_Rate': [hr], 'Body_Temp': [bt]}
     df = pd.DataFrame(data)
-    return model.predict(df)[0]
+    return max(model.predict(df)[0], 0)
 
 
 @app.route('/predict_calories', methods=['POST'])

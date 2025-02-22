@@ -35,7 +35,6 @@ const HydrationReminder = () => {
 
   useEffect(() => {
     const interval = 2 * 60 * 60 * 1000;
-
     const initialTimeout = setTimeout(() => {
       if (Notification.permission === 'granted') {
         notifyUser("Prioritize your health: Stand, stretch, and hydrate!");
