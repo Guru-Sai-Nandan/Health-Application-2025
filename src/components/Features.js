@@ -28,7 +28,7 @@ const Features = () => {
                     <NavLink to="/nutrition">
                         <DisplayCard title={"Know your Food"} subtitle={""} img={image1} />
                     </NavLink>
-                    <NavLink to="/tracking">
+                    <NavLink to="/analysis">
                         <DisplayCard title={"Weekly Progress"} subtitle={""} img={image2} />
                     </NavLink>
                 </div>
