@@ -78,12 +78,13 @@ export default function Header() {
             </h1>
           </div>
 
-          <div className='flex items-center mx-5 ml-8'>
-            <Button color={'white'} as={'a'} fontSize={'xl'} fontWeight={500} variant={'link'} href={'/hydration-remainder'}>
-              Hydration Remainder
+          <div className='flex items-center ml-auto mr-2'>
+            <Button color={'white'} as={'a'} fontSize={'xl'} fontWeight={500} variant={'link'} href={'/features'}>
+              Features
             </Button>
           </div>
 
+        {/* 
           <div className='flex items-center mx-5 ml-2'>
             <Button color={'white'} as={'a'} fontSize={'xl'} fontWeight={500} variant={'link'} href={'/nutrition'}>
               Know Your Food
@@ -94,7 +95,7 @@ export default function Header() {
             <Button color={'white'} as={'a'} fontSize={'xl'} fontWeight={500} variant={'link'} href={'/daily-calorie-calculator'}>
               Know Daily Calories
             </Button>
-          </div>
+          </div> */}
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />

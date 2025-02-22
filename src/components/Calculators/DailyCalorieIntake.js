@@ -134,12 +134,13 @@ const DailyCalorieIntake = () => {
                                 <option value="highlyActive">Highly Active</option>
                             </select>
                         </div>
-                        <button
+                        <button disabled={!activityLevel || !height || !weight || !age || !sex}
                             className="bg-[#599f3d] text-white p-2 rounded-md hover:bg-[#599f3d60]"
                             onClick={calculateCalories}
                         >
                             Calculate Calories
                         </button>
+                        {(!activityLevel || !height || !weight || !age || !sex) && <h3 className='text-red-500 mt-1'>Enter all values!</h3>}
                         {calorieResult !== null && (
                             <div className="mt-4 text-center">
                                 <p className="text-lg font-semibold">Your estimated daily calorie Range:</p>
