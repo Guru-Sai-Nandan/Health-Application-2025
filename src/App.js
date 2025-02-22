@@ -16,6 +16,7 @@ import Header from "./components/Header";
 import Recommendations from './components/Recommendations/Recommendations'
 import Features from "./components/Features";
 import NotFound from "./components/NotFound"
+import DiseaseFoodRestrictions from "./components/DiseaseFoodRestrictions";
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
                 <Route path='/recommendations' element={<Recommendations />} />
                 <Route path='/test' element={<Test />} />
                 <Route path="*" element={<NotFound />} />
+                <Route path="/disease" element={<DiseaseFoodRestrictions/>}/>
               </Routes>
             </BrowserRouter>
           </ThemeProvider>
