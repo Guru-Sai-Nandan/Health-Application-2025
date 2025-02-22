@@ -36,10 +36,16 @@ def predict_calories(gen, age, hei, wei, dur, hr, bt):
 def predict_calories_api():
     try:
         content = request.get_json()
-        result = predict_calories(
-            content['Gender'], content['Age'], content['Height'], content['Weight'],
-            content['Duration'], content['Heart_Rate'], content['Body_Temp']
-        )
+        gen = content['Gender']
+        age = content['Age']
+        hei = content['Height']
+        wei = content['Weight']
+        dur = content['Duration']
+        hr = content['Heart_Rate']
+        bt = content['Body_Temp']
+        print(content)
+        result = xgb_predict(gen, age, hei, wei, dur, hr, bt)
+        print(result)
         return jsonify({"calories": round(result)})
     except Exception as e:
         return jsonify({"error": str(e)})
